@@ -2,11 +2,29 @@ import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 
-export default function EditEmployee() {
+export default function EditEmployee(props) {
     const [show, setShow] = useState(false);
+
+    const [name, setName] = useState(props.name);
+    const [role, setRole] = useState(props.role);
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+
+    function changeName(event) {
+        setName(event.target.value);
+    }
+
+    function changeRole(event) {
+        setRole(event.target.value);
+    }
+
+    function handleSubmit(e) {
+        e.preventDefault();
+        console.log(props.id, name, role);
+        props.updateEmployee(props.id, name, role);
+        handleClose();
+    }
 
     return (
         <>
@@ -28,7 +46,19 @@ export default function EditEmployee() {
                     <Modal.Title>Update Employee</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <form id="editModal" className="w-full max-w-sm">
+                    <form
+                        onSubmit={handleSubmit}
+                        id="editModal"
+                        className="w-full max-w-sm"
+                    >
+                        <div className="md:flex md:items-center mb-6">
+                            <img
+                                className="object-cover h-[100px] w-[100px] block mx-auto h-24 rounded-full sm:mx-0 sm:shrink-0"
+                                src={props.image}
+                                alt="profile"
+                            />
+                        </div>
+
                         <div className="md:flex md:items-center mb-6">
                             <div className="md:w-1/3">
                                 <label
@@ -43,7 +73,8 @@ export default function EditEmployee() {
                                     className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
                                     id="name"
                                     type="text"
-                                    value="Jane"
+                                    value={name}
+                                    onChange={changeName}
                                 />
                             </div>
                         </div>
@@ -61,7 +92,8 @@ export default function EditEmployee() {
                                     className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
                                     id="role"
                                     type="text"
-                                    value="Jane Doe"
+                                    value={role}
+                                    onChange={changeRole}
                                 />
                             </div>
                         </div>
@@ -71,9 +103,9 @@ export default function EditEmployee() {
                     <Button variant="secondary" onClick={handleClose}>
                         Close
                     </Button>
-                    <button form="editModal"
-                        class="shadow bg-purple-500 hover:bg-purple-700 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
-                        type="button"
+                    <button
+                        form="editModal"
+                        className="shadow bg-purple-500 hover:bg-purple-700 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
                     >
                         Update
                     </button>
