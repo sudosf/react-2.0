@@ -45,7 +45,7 @@ export default function EditEmployee(props) {
                 <Modal.Header closeButton>
                     <Modal.Title>Update Employee</Modal.Title>
                 </Modal.Header>
-                <Modal.Body>
+                <Modal.Body className="align-items-center">
                     <form
                         onSubmit={handleSubmit}
                         id="editModal"

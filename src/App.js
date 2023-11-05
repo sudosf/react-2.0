@@ -3,6 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Employee from "./components/Employee";
 import React from "react";
 import { v4 as uuidv4 } from "uuid";
+import AddEmployee from "./components/AddEmployee";
 
 function App() {
     const [employees, setEmployees] = React.useState([
@@ -56,9 +57,19 @@ function App() {
         setEmployees(updatedEmployees);
     }
 
+    function newEmployee(newName, newRole, newImg) {
+        var  emp = {
+            id: uuidv4(),
+            name: newName,
+            role: newRole,
+            image: newImg
+        }
+        setEmployees([...employees, emp])
+    }
+
     return (
         <>
-            <div className="flex flex-wrap">
+            <div className="flex flex-wrap justify-center">
                 {employees.map((employee) => (
                     <Employee
                         key={uuidv4()}
@@ -67,6 +78,8 @@ function App() {
                     />
                 ))}
             </div>
+
+            <AddEmployee newEmployee={newEmployee}/>
         </>
     );
 }
