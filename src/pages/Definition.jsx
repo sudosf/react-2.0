@@ -46,6 +46,7 @@ export default function Definition() {
             {word ? (
                 <>
                     <h1>Here is a definition:</h1>
+                    <h2 className='mt-4'>{search}</h2>
                     {word.map((meaning) => {
                         return (
                             <p key={uuidv4()}>
@@ -60,4 +61,4 @@ export default function Definition() {
             ) : null}
         </>
     );
-}
+} 
