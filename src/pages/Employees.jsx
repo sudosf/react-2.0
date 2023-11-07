@@ -4,7 +4,6 @@ import Employee from "../components/Employee";
 import React from "react";
 import { v4 as uuidv4 } from "uuid";
 import AddEmployee from "../components/AddEmployee";
-import NavBar from "../components/NavBar";
 
 export default function Employees() {
     const [employees, setEmployees] = React.useState([
@@ -48,7 +47,7 @@ export default function Employees() {
 
     function updateEmployee(id, newName, newRole) {
         const updatedEmployees = employees.map((employee) => {
-            if (id == employee.id) {
+            if (id === employee.id) {
                 return { ...employee, name: newName, role: newRole };
             }
 
